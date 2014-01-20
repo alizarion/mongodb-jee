@@ -1,12 +1,19 @@
 package com.alizarion.nosql.biz.entities;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
 /**
  * Created by selim.bensenouci on 16/01/14.
  */
+@Document
 public class Credential {
 
+    @Id
     private Long id;
 
+    @Field("username")
     private String userName;
 
     private String password;

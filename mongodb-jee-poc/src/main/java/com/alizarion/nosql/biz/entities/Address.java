@@ -1,14 +1,20 @@
 package com.alizarion.nosql.biz.entities;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
 /**
  * Created by selim.bensenouci on 16/01/14.
  */
+@Document
 public class Address {
+
 
     private String street;
 
     private String number;
 
+    @Field("zip_code")
     private Integer zipCode;
 
     public Address() {

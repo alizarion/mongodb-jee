@@ -16,6 +16,10 @@
         <property name="host" value="localhost" />
     </bean>
 
+    <bean id="reCaptchaService" class="net.tanesha.recaptcha.ReCaptchaImpl">
+        <property name="privateKey" value="6Ldt4dYSAAAAABfVpYKQAmg95sA5iKXWmXduYln5"></property>
+    </bean>
+
     <!-- MongoTemplate instance -->
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
         <constructor-arg name="mongo" ref="mongo" />

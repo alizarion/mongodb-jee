@@ -18,5 +18,34 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
+    <servlet-mapping>
+        <servlet-name>Spring</servlet-name>
+        <url-pattern>/rest/*</url-pattern>
+    </servlet-mapping>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>page d administration du compte</web-resource-name>
+            <url-pattern>/rest/account/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Only Subscribed user can access to this resource</description>
+            <role-name>Subscribers</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-role>
+
+        <role-name>Subscribers</role-name>
+    </security-role>
+
+    <!-- ================================================================================ -->
+    <!-- WEBAPP Config -->
+    <!-- ================================================================================ -->
+
+    <welcome-file-list>
+        <welcome-file>/index.html</welcome-file>
+    </welcome-file-list>
+
 
 </web-app>

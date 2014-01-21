@@ -55,7 +55,20 @@
 			<version>${querydsl.version}</version>
 		</dependency>
 
-	</dependencies>
+        <dependency>
+            <groupId>net.tanesha.recaptcha4j</groupId>
+            <artifactId>recaptcha4j</artifactId>
+            <version>0.0.7</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+
+    </dependencies>
 	
 	<build>
 		<plugins>

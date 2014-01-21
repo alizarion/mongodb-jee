@@ -1,0 +1,26 @@
+<div>
+    <h2>total todos: {{getTotalTodos()}}</h2>
+    <ul class="list-unstyled">
+        <li ng-repeat="todo in todos">
+
+            <input type="checkbox" ng-model="todo.done"/>
+            <span class="done-{{todo.done}}">{{todo.text}}</span>
+        </li>
+    </ul>
+
+    <form class="form-horizontal">
+        <input type="text" ng-model="formTodoText" ng-model-intant/>
+        <button class="btn" ng-click="addTodo()"> <i class="icon-next"></i>Add</button>
+        <div
+                vc-recaptcha
+                ng-model="model.captcha"
+                key="6Ldt4dYSAAAAAHTwVsB_I8bLSOpI-Lh8VBIMOXee">
+
+        </div>
+        <button class="btn" ng-click="submit()">Submit</button>
+    </form>
+
+    <button class="btn-group-justified" ng-click="clearCompleted()"><i class="icon-prev"></i> Clear</button>
+
+
+</div>

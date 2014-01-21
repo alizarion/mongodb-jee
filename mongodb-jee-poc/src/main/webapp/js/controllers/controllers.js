@@ -2,8 +2,9 @@
  * Created by selim.bensenouci on 21/01/14.
  */
 
-function HomeCtrl($scope, simpleFactory,vcRecaptchaService){
+function HomeCtrl($scope,$resource,recaptcha, simpleFactory,vcRecaptchaService){
 
+//   console.log(recaptcha.query());
     $scope.todos = simpleFactory;
 
 
@@ -32,6 +33,9 @@ function HomeCtrl($scope, simpleFactory,vcRecaptchaService){
 
         console.log('sending the captcha response to the server', vcRecaptchaService.data());
 
+        recaptcha.save(vcRecaptchaService.data(),function(response){
+           console.log(response);
+        });
         // You need to implement your server side validation here.
         // Send the model.captcha object to the server and use some of the server side APIs to validate it
         // See https://developers.google.com/recaptcha/docs/

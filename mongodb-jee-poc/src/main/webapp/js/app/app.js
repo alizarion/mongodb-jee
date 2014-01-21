@@ -17,3 +17,7 @@ linker.factory('simpleFactory', function(){
          {text:'faire une pplication',done:false}];
     return factory;
 })
+linker.factory('recaptcha', function ($resource) {
+        return $resource('rest/recaptcha', {});
+    });
+

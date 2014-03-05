@@ -2,6 +2,13 @@
    background-color: red;
 }
 
+html, body a{
+    text-decoration: none;
+}
+html, body a:hover{
+    text-decoration: none;
+}
+
 .done-false {
      background-color: #269abc;
 }

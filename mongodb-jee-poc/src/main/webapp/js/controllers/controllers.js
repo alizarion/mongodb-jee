@@ -2,11 +2,36 @@
  * Created by selim.bensenouci on 21/01/14.
  */
 
-function HomeCtrl($scope,$resource,recaptcha, simpleFactory,vcRecaptchaService){
+'usse strict';
+//définition d'une collection de controlleurs
+var controllers = {};
 
+
+//Register view controllers
+controllers.RegisterCtrl  = function($scope,$resource,$interval,localized,recaptcha, simpleFactory,vcRecaptchaService){
+    $scope.format = 'M/d/yy h:mm:ss a';
 //   console.log(recaptcha.query());
-    $scope.todos = simpleFactory;
 
+    var titi =  $interval(function(success) {
+        console.log("toto");
+
+    }, 1000);
+
+
+    $scope.stopFight = function(){
+        $interval.cancel(titi);
+        titi= undefined;
+    };
+
+    $scope.$on('$destroy', function() {
+        // Make sure that the interval is destroyed too
+        $scope.stopFight();
+    });
+
+
+    console.log(titi);
+    $scope.todos = simpleFactory;
+    $scope.localized = localized.query();
 
     $scope.getTotalTodos = function(){
         var total  = 0;
@@ -30,24 +55,27 @@ function HomeCtrl($scope,$resource,recaptcha, simpleFactory,vcRecaptchaService){
     }
     $scope.submit = function () {
         var valid;
-
         console.log('sending the captcha response to the server', vcRecaptchaService.data());
-
-        recaptcha.save(vcRecaptchaService.data(),function(response){
-           console.log(response);
+        recaptcha.save(vcRecaptchaService.data(),function (response) {
+            if (response.valid) {
+                console.log('Success');
+            } else {
+                console.log('Failed validation');
+                // In case of a failed validation you need to reload the
+                // captcha because each challenge can be checked just once
+                vcRecaptchaService.reload();
+            }
         });
-        // You need to implement your server side validation here.
-        // Send the model.captcha object to the server and use some of the server side APIs to validate it
-        // See https://developers.google.com/recaptcha/docs/
-
-        if (valid) {
-            console.log('Success');
-
-        } else {
-            console.log('Failed validation');
-
-            // In case of a failed validation you need to reload the captcha because each challenge can be checked just once
-            vcRecaptchaService.reload();
-        }
     };
-}
+};
+
+//home view controller
+controllers.HomeCtrl = function($scope,$location){
+    $scope.changeView = function(newView){
+        $location.path(newView);
+    }
+};
+
+
+//adding all controllers to the app object
+linker.controller(controllers);

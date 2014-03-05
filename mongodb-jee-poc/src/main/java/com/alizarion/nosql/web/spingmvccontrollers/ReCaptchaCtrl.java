@@ -1,20 +1,21 @@
 package com.alizarion.nosql.web.spingmvccontrollers;
 
-import com.alizarion.nosql.biz.CaptchaData;
+import com.alizarion.nosql.biz.CaptchaDTO;
 import net.tanesha.recaptcha.ReCaptcha;
 import net.tanesha.recaptcha.ReCaptchaResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.ServletRequest;
 
 @Controller
 public class ReCaptchaCtrl {
+
     @Autowired
     private ReCaptcha reCaptchaService = null;
+
 
 
     @RequestMapping(value={"/re", "/recaptcha"},  method=RequestMethod.GET)
@@ -23,18 +24,14 @@ public class ReCaptchaCtrl {
     }
 
     @RequestMapping(value="/recaptcha", method=RequestMethod.POST)
-    public  String verify(@RequestBody CaptchaData recaptcha,  Model model) {
+    public @ResponseBody CaptchaDTO verify(@RequestBody CaptchaDTO recaptcha,ServletRequest servletRequest) {
+        String remoteAddr = servletRequest.getRemoteAddr();
 
-
-        ReCaptchaResponse reCaptchaResponse = reCaptchaService.checkAnswer(recaptcha.getChallenge(), recaptcha.getChallenge(), recaptcha.getChallenge());
-
-        if(reCaptchaResponse.isValid()) {
-            model.addAttribute("message", "reCaptcha Hello World!");
-            return "success";
-        } else {
-            model.addAttribute("message", "Try again and prove it.");
-            return "captcha";
-        }
+        ReCaptchaResponse reCaptchaResponse = reCaptchaService.checkAnswer(
+                remoteAddr, recaptcha.getChallenge(),recaptcha.getResponse()
+                );
+        recaptcha.setValid(reCaptchaResponse.isValid());
+       return recaptcha;
     }
 
 }

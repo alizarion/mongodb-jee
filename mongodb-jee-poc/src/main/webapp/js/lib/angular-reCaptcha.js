@@ -15,7 +15,6 @@
 /*global angular, Recaptcha */
 (function (ng, Recaptcha) {
     'use strict';
-
     var app = ng.module('vcRecaptcha');
 
     /**
